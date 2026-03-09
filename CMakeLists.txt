@@ -16,6 +16,8 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
+add_subdirectory(res)
+
 set(SOURCES
         src/main.cpp
         src/om_data_model.cpp
@@ -45,4 +47,5 @@ target_link_libraries(${TARGET_NAME} PRIVATE
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
+        app_resources
 )

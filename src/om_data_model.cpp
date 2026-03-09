@@ -1,7 +1,7 @@
 #include "om_data_model.h"
 #include "dataproviders/i_om_data_provider.h"
 
-#include <QIcon>
+#include <QPixmap>
 
 namespace {
 const QString cCountryTextFormat = "%1 (%2)";
@@ -82,7 +82,7 @@ QVariant OMDataModel::data(const QModelIndex &index, int role) const
         case Qt::ItemDataRole::DecorationRole: {
             auto iconPath = cCountryIconPathFormat
                              .arg(m_dataProvider->getCountryCode(idx));
-            result = QIcon(iconPath);
+            result = QPixmap(iconPath);
             break;
         }
         default:
@@ -103,7 +103,7 @@ QVariant OMDataModel::data(const QModelIndex &index, int role) const
             auto iconPath = cOperatorIconPathFormat
                              .arg(m_dataProvider->getCountryMcc(countryIdx))
                              .arg(m_dataProvider->getOperatorMnc(countryIdx, operatorIdx));
-            result = QIcon(iconPath);
+            result = QPixmap(iconPath);
 
             break;
         }
