@@ -5,9 +5,12 @@ project(qt-treeview LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+
 set(TARGET_NAME ${CMAKE_PROJECT_NAME}_app)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Qml)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -31,5 +34,5 @@ qt_add_executable(${TARGET_NAME}
 target_link_libraries(${TARGET_NAME} PRIVATE
         Qt6::Core
         Qt6::Gui
-        Qt6::Quick
+        Qt6::Widgets
 )
