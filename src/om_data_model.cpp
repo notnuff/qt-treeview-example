@@ -18,7 +18,7 @@ OMDataModel::OMDataModel(IOMDataProvider *dataProvider, QObject *parent)
 QModelIndex OMDataModel::index(const int row, const int column, const QModelIndex &parent) const
 {
     if (!hasIndex(row, column, parent)) {
-        return { };
+        return {};
     }
 
     if (!parent.isValid()) {
@@ -33,12 +33,12 @@ QModelIndex OMDataModel::index(const int row, const int column, const QModelInde
 QModelIndex OMDataModel::parent(const QModelIndex &child) const
 {
     if (!child.isValid()) {
-        return { };
+        return {};
     }
 
     if (child.internalId() == static_cast<quintptr>(-1)) {
         // country
-        return { };
+        return {};
     }
 
     // operator
@@ -75,13 +75,11 @@ QVariant OMDataModel::data(const QModelIndex &index, int role) const
         const auto idx = index.row();
         switch (role) {
         case Qt::ItemDataRole::DisplayRole:
-            result = cCountryTextFormat
-                             .arg(m_dataProvider->getCountryName(idx))
+            result = cCountryTextFormat.arg(m_dataProvider->getCountryName(idx))
                              .arg(m_dataProvider->getCountryCode(idx));
             break;
         case Qt::ItemDataRole::DecorationRole: {
-            auto iconPath = cCountryIconPathFormat
-                             .arg(m_dataProvider->getCountryCode(idx));
+            auto iconPath = cCountryIconPathFormat.arg(m_dataProvider->getCountryCode(idx));
             result = QPixmap(iconPath);
             break;
         }
@@ -100,9 +98,8 @@ QVariant OMDataModel::data(const QModelIndex &index, int role) const
                              .arg(m_dataProvider->getOperatorMnc(countryIdx, operatorIdx));
             break;
         case Qt::ItemDataRole::DecorationRole: {
-            auto iconPath = cOperatorIconPathFormat
-                             .arg(m_dataProvider->getCountryMcc(countryIdx))
-                             .arg(m_dataProvider->getOperatorMnc(countryIdx, operatorIdx));
+            auto iconPath = cOperatorIconPathFormat.arg(m_dataProvider->getCountryMcc(countryIdx))
+                                    .arg(m_dataProvider->getOperatorMnc(countryIdx, operatorIdx));
             result = QPixmap(iconPath);
 
             break;

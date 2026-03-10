@@ -3,9 +3,9 @@
 #include <memory>
 
 #ifdef USE_MOCK_DATA_PROVIDER
-#include "tests/mock_data_provider_om_filled.h"
+#  include "tests/mock_data_provider_om_filled.h"
 #else
-#include "dataproviders/sqlite_om_data_provider.h"
+#  include "dataproviders/sqlite_om_data_provider.h"
 #endif
 
 inline std::unique_ptr<IOMDataProvider> getOMDataProvider()

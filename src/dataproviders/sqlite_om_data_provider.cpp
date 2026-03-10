@@ -5,8 +5,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-SqliteOMDataProvider::SqliteOMDataProvider(const QString& dbPath)
-    : m_isValid(false)
+SqliteOMDataProvider::SqliteOMDataProvider(const QString &dbPath) : m_isValid(false)
 {
     QString fullPath = dbPath;
     if (!QDir::isAbsolutePath(dbPath)) {
@@ -115,7 +114,8 @@ QString SqliteOMDataProvider::getOperatorName(int countryIdx, int operatorIdx)
     }
 
     QSqlQuery query(m_database);
-    query.prepare("SELECT name FROM operators WHERE mcc = :mcc ORDER BY name LIMIT 1 OFFSET :offset");
+    query.prepare(
+            "SELECT name FROM operators WHERE mcc = :mcc ORDER BY name LIMIT 1 OFFSET :offset");
     query.bindValue(":mcc", QString::number(mcc));
     query.bindValue(":offset", operatorIdx);
     query.exec();
@@ -137,7 +137,8 @@ int SqliteOMDataProvider::getOperatorMnc(int countryIdx, int operatorIdx)
     }
 
     QSqlQuery query(m_database);
-    query.prepare("SELECT mnc FROM operators WHERE mcc = :mcc ORDER BY name LIMIT 1 OFFSET :offset");
+    query.prepare(
+            "SELECT mnc FROM operators WHERE mcc = :mcc ORDER BY name LIMIT 1 OFFSET :offset");
     query.bindValue(":mcc", QString::number(mcc));
     query.bindValue(":offset", operatorIdx);
     query.exec();
@@ -162,4 +163,3 @@ int SqliteOMDataProvider::getMccForCountryIdx(int countryIdx) const
     }
     return 0;
 }
-

@@ -6,7 +6,7 @@ class IOMDataProvider;
 class OMDataModel : public QAbstractItemModel
 {
 public:
-    OMDataModel(IOMDataProvider* dataProvider, QObject *parent = nullptr);
+    OMDataModel(IOMDataProvider *dataProvider, QObject *parent = nullptr);
 
     virtual QModelIndex index(int row, int column, const QModelIndex &parent) const override;
     virtual QModelIndex parent(const QModelIndex &child) const override;
@@ -15,5 +15,5 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const override;
 
 private:
-    IOMDataProvider* m_dataProvider;
+    IOMDataProvider *m_dataProvider;
 };

@@ -9,17 +9,13 @@ public:
 
 protected:
     virtual void drawBranches(QPainter *painter, const QRect &rect,
-                             const QModelIndex &index) const override;
+                              const QModelIndex &index) const override;
 
 private:
-    void drawNestedBranches(QPainter *painter, const QRect &rect,
-                           const QModelIndex &index) const;
+    void drawNestedBranches(QPainter *painter, const QRect &rect, const QModelIndex &index) const;
 
-    void drawRootVLine(QPainter *painter, const QRect &rect,
-                           const QModelIndex &index) const;
-    void drawSubBranch(QPainter *painter, const QRect &rect,
-                           const QModelIndex &index) const;
+    void drawRootVLine(QPainter *painter, const QRect &rect, const QModelIndex &index) const;
+    void drawSubBranch(QPainter *painter, const QRect &rect, const QModelIndex &index) const;
 
     int getSubBranchX(const QRect &rect, const QModelIndex &index) const;
 };
-

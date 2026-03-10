@@ -52,7 +52,7 @@ void OMTreeView::drawRootVLine(QPainter *painter, const QRect &rect, const QMode
             arrow.setTop(arrow.top() + cBranchArrowOffset);
             arrow.setBottom(arrow.bottom() - cBranchArrowOffset);
         } else {
-            arrow = {rect.center(), rect.center()};
+            arrow = { rect.center(), rect.center() };
         }
 
         if (!isFirstParentElement) {

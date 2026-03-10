@@ -45,7 +45,7 @@ int MockDataProviderOMFilled::getCountryOperatorsCount(int countryIdx)
 QString MockDataProviderOMFilled::getOperatorName(int countryIdx, int operatorIdx)
 {
     if (countryIdx >= 0 && countryIdx < m_countries.size()) {
-        const auto& operators = m_countries[countryIdx].operators;
+        const auto &operators = m_countries[countryIdx].operators;
         if (operatorIdx >= 0 && operatorIdx < operators.size()) {
             return operators[operatorIdx].name;
         }
@@ -56,7 +56,7 @@ QString MockDataProviderOMFilled::getOperatorName(int countryIdx, int operatorId
 int MockDataProviderOMFilled::getOperatorMnc(int countryIdx, int operatorIdx)
 {
     if (countryIdx >= 0 && countryIdx < m_countries.size()) {
-        const auto& operators = m_countries[countryIdx].operators;
+        const auto &operators = m_countries[countryIdx].operators;
         if (operatorIdx >= 0 && operatorIdx < operators.size()) {
             return operators[operatorIdx].mnc;
         }
@@ -66,30 +66,16 @@ int MockDataProviderOMFilled::getOperatorMnc(int countryIdx, int operatorIdx)
 
 void MockDataProviderOMFilled::initializeData()
 {
-    m_countries.append({
-        "Ukraine", "UA", 255,
-        {
-            {"UMC", 1},
-            {"WellCOM", 2},
-            {"KYIVSTAR", 3}
-        }
-    });
+    m_countries.append(
+            { "Ukraine", "UA", 255, { { "UMC", 1 }, { "WellCOM", 2 }, { "KYIVSTAR", 3 } } });
 
-    m_countries.append({
-        "United States", "US", 310,
-        {
-            {"Verizon", 4},
-            {"AT&T", 410},
-            {"T-Mobile USA", 260}
-        }
-    });
+    m_countries.append({ "United States",
+                         "US",
+                         310,
+                         { { "Verizon", 4 }, { "AT&T", 410 }, { "T-Mobile USA", 260 } } });
 
-    m_countries.append({
-        "India", "IN", 404,
-        {
-            {"Vodafone India", 1},
-            {"Airtel", 10},
-            {"Reliance Jio", 27}
-        }
-    });
+    m_countries.append({ "India",
+                         "IN",
+                         404,
+                         { { "Vodafone India", 1 }, { "Airtel", 10 }, { "Reliance Jio", 27 } } });
 }

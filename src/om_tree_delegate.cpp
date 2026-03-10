@@ -7,19 +7,16 @@ namespace {
 constexpr int cItemVerticalPadding = 4;
 constexpr int cItemHorizontalPadding = 4;
 constexpr int cItemInnerGap = 4;
-}
+} // namespace
 
-OMTreeDelegate::OMTreeDelegate(QObject *parent)
-    : QStyledItemDelegate(parent)
-{
-}
+OMTreeDelegate::OMTreeDelegate(QObject *parent) : QStyledItemDelegate(parent) { }
 
 void OMTreeDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
-                            const QModelIndex &index) const
+                           const QModelIndex &index) const
 {
     painter->save();
 
-    const auto& rc = option.rect;
+    const auto &rc = option.rect;
 
     if (option.state & QStyle::State_Selected) {
         painter->fillRect(rc, option.palette.highlight());
@@ -48,12 +45,11 @@ void OMTreeDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     }
 
     QColor textColor = (option.state & QStyle::State_Selected)
-                       ? option.palette.highlightedText().color()
-                       : option.palette.text().color();
+            ? option.palette.highlightedText().color()
+            : option.palette.text().color();
     painter->setPen(textColor);
 
-    QRect textRect(xPos, rc.top(),
-                   rc.right() - xPos, rc.height());
+    QRect textRect(xPos, rc.top(), rc.right() - xPos, rc.height());
     painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, text);
 
     painter->setPen(QPen(Qt::gray, 1));

@@ -8,7 +8,7 @@
 class SqliteOMDataProvider : public IOMDataProvider
 {
 public:
-    explicit SqliteOMDataProvider(const QString& dbPath = "system.db");
+    explicit SqliteOMDataProvider(const QString &dbPath = "system.db");
     ~SqliteOMDataProvider() override;
 
     int getCountriesCount() override;
@@ -26,4 +26,3 @@ private:
     QSqlDatabase m_database;
     bool m_isValid;
 };
-
