@@ -27,6 +27,7 @@ SqliteOMDataProvider::~SqliteOMDataProvider()
     if (m_database.isOpen()) {
         m_database.close();
     }
+    m_database = QSqlDatabase();
     QSqlDatabase::removeDatabase("om_data_connection");
 }
 
