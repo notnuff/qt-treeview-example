@@ -12,7 +12,7 @@ set(TARGET_NAME ${CMAKE_PROJECT_NAME}_app)
 
 option(USE_MOCK_PROVIDER "Use mock data provider instead of real SQLite" OFF)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Sql)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -36,6 +36,9 @@ set(HEADERS
 if(USE_MOCK_PROVIDER)
     list(APPEND SOURCES src/tests/mock_data_provider_om_filled.cpp)
     list(APPEND HEADERS src/tests/mock_data_provider_om_filled.h)
+else()
+    list(APPEND SOURCES src/dataproviders/sqlite_om_data_provider.cpp)
+    list(APPEND HEADERS src/dataproviders/sqlite_om_data_provider.h)
 endif()
 
 qt_add_executable(${TARGET_NAME}
@@ -51,5 +54,6 @@ target_link_libraries(${TARGET_NAME} PRIVATE
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
+        Qt6::Sql
         app_resources
 )
