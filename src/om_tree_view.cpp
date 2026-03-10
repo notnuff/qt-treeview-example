@@ -6,13 +6,9 @@ namespace {
 constexpr int cBranchArrowOffset = 4;
 }
 
-OMTreeView::OMTreeView(QWidget *parent)
-    : QTreeView(parent)
-{
-}
+OMTreeView::OMTreeView(QWidget *parent) : QTreeView(parent) { }
 
-void OMTreeView::drawBranches(QPainter *painter, const QRect &rect,
-                               const QModelIndex &index) const
+void OMTreeView::drawBranches(QPainter *painter, const QRect &rect, const QModelIndex &index) const
 {
     QTreeView::drawBranches(painter, rect, index);
 
@@ -20,7 +16,7 @@ void OMTreeView::drawBranches(QPainter *painter, const QRect &rect,
 }
 
 void OMTreeView::drawNestedBranches(QPainter *painter, const QRect &rect,
-                                  const QModelIndex &index) const
+                                    const QModelIndex &index) const
 {
     painter->save();
 
@@ -49,18 +45,22 @@ void OMTreeView::drawRootVLine(QPainter *painter, const QRect &rect, const QMode
         QStyleOptionViewItem opt;
         opt.rect = rect;
 
-        QRect arrow = style()->subElementRect(
-            QStyle::SE_TreeViewDisclosureItem,
-            &opt,
-            this
-        );
+        QRect arrow;
+
+        if (index.model()->rowCount(index) > 0) {
+            arrow = style()->subElementRect(QStyle::SE_TreeViewDisclosureItem, &opt, this);
+            arrow.setTop(arrow.top() + cBranchArrowOffset);
+            arrow.setBottom(arrow.bottom() - cBranchArrowOffset);
+        } else {
+            arrow = {rect.center(), rect.center()};
+        }
 
         if (!isFirstParentElement) {
-            painter->drawLine(x, rect.top(), x, arrow.top() - cBranchArrowOffset);
+            painter->drawLine(x, rect.top(), x, arrow.top());
         }
 
         if (!isLastParentElement) {
-            painter->drawLine(x, arrow.bottom(), x, rect.bottom() + cBranchArrowOffset);
+            painter->drawLine(x, arrow.bottom(), x, rect.bottom());
         }
 
     } else {
@@ -72,12 +72,12 @@ void OMTreeView::drawRootVLine(QPainter *painter, const QRect &rect, const QMode
 void OMTreeView::drawSubBranch(QPainter *painter, const QRect &rect, const QModelIndex &index) const
 {
     const auto x = getSubBranchX(rect, index);
-    const auto& rc = visualRect(index);
+    const auto &rc = visualRect(index);
 
     painter->drawLine(x, rc.center().y(), rc.left(), rc.center().y());
 
-    if (const auto& parent = index.parent(); parent.isValid()) {
-        const auto rowCount = parent.model()->rowCount();
+    if (const auto &parent = index.parent(); parent.isValid()) {
+        const auto rowCount = parent.model()->rowCount(parent);
         const auto isLastChild = index.row() == rowCount - 1;
 
         const auto y = isLastChild ? rc.center().y() : rc.bottom();
@@ -88,21 +88,21 @@ void OMTreeView::drawSubBranch(QPainter *painter, const QRect &rect, const QMode
 
 int OMTreeView::getSubBranchX(const QRect &rect, const QModelIndex &index) const
 {
-    if (const auto& parent = index.parent(); parent.isValid()) {
+    if (const auto &parent = index.parent(); parent.isValid()) {
         const auto parentRect = visualRect(parent);
         const auto thisRect = visualRect(index);
         const auto xMid = (parentRect.left() + thisRect.left()) / 2;
         return xMid;
     }
 
+    if (index.model()->rowCount(index) == 0) {
+        return rect.left() + indentation() / 2;
+    }
+
     QStyleOptionViewItem opt;
     opt.rect = rect;
 
-    QRect arrow = style()->subElementRect(
-        QStyle::SE_TreeViewDisclosureItem,
-        &opt,
-        this
-    );
+    QRect arrow = style()->subElementRect(QStyle::SE_TreeViewDisclosureItem, &opt, this);
 
     const auto x = arrow.right() - cBranchArrowOffset;
     return x;
