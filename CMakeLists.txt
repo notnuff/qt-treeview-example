@@ -21,10 +21,14 @@ add_subdirectory(res)
 set(SOURCES
         src/main.cpp
         src/om_data_model.cpp
+        src/om_tree_delegate.cpp
+        src/om_tree_view.cpp
 )
 
 set(HEADERS
         src/om_data_model.h
+        src/om_tree_delegate.h
+        src/om_tree_view.h
         src/dataproviders/i_om_data_provider.h
         src/om_data_provider_injector.h
 )
